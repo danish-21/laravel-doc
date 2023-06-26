@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,11 +27,32 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:api'])->group(function () {
     Route::get('self', [UserController::class, 'self']);
     Route::delete('users/{id}', [UserController::class, 'destroy']);
+    Route::put('users/{id}', [UserController::class, 'updateUser']);
     Route::get('users', [UserController::class, 'index']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
+    Route::post('categories', [CategoryController::class, 'create']);
+    Route::post('carts', [CartController::class, 'addToCart']);
+    Route::get('carts', [CartController::class, 'getAllCartData']);
+    Route::put('carts/{id}', [CartController::class, 'updateCartDetail']);
+
+
 
 });
 Route::post('authenticate', [AuthController::class, 'doLogin']);
 Route::post('resend-opt', [AuthController::class, 'resendOtp']);
 Route::post('users', [UserController::class, 'createUser']);
+Route::get('categories', [CategoryController::class, 'index']);
+Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
+Route::get('attributes', [CategoryController::class, 'getName']);
+Route::put('categories/{id}/status', [CategoryController::class, 'updateStatus']);
+Route::post('products', [ProductController::class, 'bulkCreate']);
+Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{id}', [ProductController::class, 'show']);
+Route::post('files', [FileController::class, 'store']);
+Route::get('video', [FileController::class, 'downloadVideosFromPlaylist']);
+
+
+
+
+
 

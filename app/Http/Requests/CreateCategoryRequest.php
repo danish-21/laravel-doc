@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class CreateUserRequest extends FormRequest
+class CreateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +21,12 @@ class CreateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'name' => 'required',
-            'phone' => 'required|unique:users,phone',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:8',
+            'categories' => 'required|array',
+            'categories.*.name' => 'required|string',
+            'categories.*.parent_id' => 'nullable|exists:categories,id',
+            'categories.*.file_id' => 'nullable|exists:files,id',
+            'categories.*.is_active' => 'nullable|boolean',
         ];
     }
 }

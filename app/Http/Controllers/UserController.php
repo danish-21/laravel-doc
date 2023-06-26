@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\AppException;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,21 +18,21 @@ class UserController extends BaseController
         $userId = Auth::id();
 
         if (!$userId) {
-            return $this->standardResponse('User not found', null, 'error', 404);
+            return $this->standardResponse('User not found', null,  null,404);
         }
 
         $user = User::find($userId);
 
         if (!$user) {
-            return $this->standardResponse('User not found', null, 'error', 404);
+            return $this->standardResponse('User not found', null,  null,404);
         }
 
-        return $this->standardResponse('User retrieved successfully', $user, 'success', 200);
+        return $this->standardResponse('User retrieved successfully', $user, null, 200);
     }
-    public function createUser(Request $request)
+    public function createUser(CreateUserRequest $request)
     {
         try {
-            $validatedData = $request->all();
+            $validatedData = $request->validated();
 
             $name = $validatedData['name'];
             $phone = $validatedData['phone'];
@@ -51,9 +52,9 @@ class UserController extends BaseController
             $user->save();
 
             // Return a response indicating success or any additional data you need
-            return response()->json(['message' => 'User created successfully', 'items' => $user], 200);
-        } catch (ValidationException $exception) {
-            return response()->json(['errors' => $exception->errors()], 422);
+            ResponseHelper::createOrUpdateResponse($user);
+        } catch (AppException $exception) {
+            return $this->standardResponse($exception->getMessage(), null,  null,400);
         }
     }
 
@@ -62,14 +63,8 @@ class UserController extends BaseController
     {
         $users = User::with('user_otps')->paginate();
 
-        $response = ResponseHelper::paginationResponse($users->items(), [
-            'page' => $users->currentPage(),
-            'total' => $users->total(),
-            'pages' => $users->lastPage(),
-            'perPage' => $users->perPage(),
-        ]);
+        return ResponseHelper::paginationResponse($users);
 
-        return response()->json($response, 200);
     }
     public function destroy($id)
     {
@@ -86,9 +81,36 @@ class UserController extends BaseController
 
             $user->delete();
 
-            return $this->standardResponse('User deleted successfully', $user, 'success', 200);
+            return ResponseHelper::deleteResponse($user);
         } catch (AppException $exception) {
-            return $this->standardResponse($exception->getMessage(), null, 'error', 400);
+            return $this->standardResponse($exception->getMessage(), null,  null,400);
+        }
+    }
+
+    /**
+     * @param UpdateUserRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateUser(UpdateUserRequest $request, $id)
+    {
+        try {
+            $validatedData = $request->validated();
+
+            $user = User::findOrFail($id);
+            $user->name = $validatedData['name'] ?? $user->name;
+            $user->phone = $validatedData['phone'] ?? $user->phone;
+            $user->email = $validatedData['email'] ?? $user->email;
+
+            // Save the updated user to the database
+            $user->save();
+
+            // Return a response indicating success or any additional data you need
+            ResponseHelper::createOrUpdateResponse($user);
+        } catch (ValidationException $exception) {
+            return response()->json(['errors' => $exception->errors()], 422);
+        }catch (AppException $exception) {
+            return $this->standardResponse($exception->getMessage(), 'User not found', null, 400);
         }
     }
 

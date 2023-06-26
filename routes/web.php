@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', function () {
+    $dl = new \Download($url = "https://www.youtube.com/watch?v=ye5BuYf8q4o", $format = "mp3", $download_path = "music" );
+
+    //Saves the file to specified directory
+    $media_info = $dl->download();
+    $media_info = $media_info->first();
+
+    // Return as a download
+    return response()->download($media_info['file']->getPathname());
+
+});

@@ -7,7 +7,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,6 +27,10 @@ use Laravel\Passport\HasApiTokens;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
+ * @property Collection|Cart[] $carts
+ * @property Collection|Order[] $orders
+ * @property Collection|UserAddress[] $user_addresses
+ * @property Collection|UserCategory[] $user_categories
  * @property Collection|UserOtp[] $user_otps
  *
  * @package App\Models
@@ -55,6 +58,26 @@ class User extends Authenticable
 		'is_active',
 		'verification_status'
 	];
+
+	public function carts()
+	{
+		return $this->hasMany(Cart::class);
+	}
+
+	public function orders()
+	{
+		return $this->hasMany(Order::class);
+	}
+
+	public function user_addresses()
+	{
+		return $this->hasMany(UserAddress::class);
+	}
+
+	public function user_categories()
+	{
+		return $this->hasMany(UserCategory::class);
+	}
 
 	public function user_otps()
 	{

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\AppException;
+use App\Mail\SendOtp;
 use App\Models\User;
 use App\Models\UserOtp;
 use Carbon\Carbon;
@@ -44,7 +45,7 @@ class AuthController extends BaseController
             ]);
         }
 
-//        (new \App\Mail\SendOtp)->reSendLoginOtp($user, $userOtp);
+        (new \App\Mail\SendOtp)->reSendLoginOtp($user, $userOtp);
 
         return [
             "uuid" => $uuid,
@@ -111,7 +112,7 @@ class AuthController extends BaseController
             }
             $user->save();
 
-//            (new \App\Mail\SendOtp)->sendLoginOtp($user, $userOtp);
+            (new \App\Mail\SendOtp)->sendLoginOtp($user, $userOtp);
 
             return [
                 "uuid" => $uuid,
@@ -135,8 +136,8 @@ class AuthController extends BaseController
                 if (Carbon::now() < $userOtp->expires_at) {
                     $user->verification_status = 1;
                     $user->save();
-                    $result = ['user' => $user, 'token' => $user->createToken('invoice')->accessToken];
-                    return $this->standardResponse($result, 'User logged in successfully', 'success', 200);
+                    $result = ['items' => $user, 'token' => $user->createToken('invoice')->accessToken];
+                    return $this->standardResponse('User logged in successfully',$result,  'success', 200);
                 } else {
                     throw new AppException('Your OTP has been expired');
                 }
@@ -181,7 +182,7 @@ class AuthController extends BaseController
             $userOtp->expires_at = Carbon::now()->addMinutes(10);
             $userOtp->save();
         }
-//        (new SendOtp)->sendOTPForPasswordChange($user, $userOtp);
+        (new SendOtp)->sendOTPForPasswordChange($user, $userOtp);
 
         return $this->standardResponse(null, 'OTP sent successfully', 'success', 200);
 
