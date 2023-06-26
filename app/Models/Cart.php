@@ -13,13 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Cart
- * 
+ *
  * @property int $id
  * @property int $user_id
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property User $user
  * @property Collection|CartDetail[] $cart_details
  * @property Collection|Order[] $orders
@@ -53,4 +53,8 @@ class Cart extends Model
 	{
 		return $this->hasMany(Order::class);
 	}
+//    public function items()
+//    {
+//        return $this->hasMany(CartItem::class);
+//    }
 }

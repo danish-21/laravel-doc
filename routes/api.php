@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('carts', [CartController::class, 'addToCart']);
     Route::get('carts', [CartController::class, 'getAllCartData']);
     Route::put('carts/{id}', [CartController::class, 'updateCartDetail']);
+    Route::post('orders', [OrderController::class, 'create']);
 
 
 

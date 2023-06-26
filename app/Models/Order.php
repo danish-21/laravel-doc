@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property int $cart_id
  * @property float $total_amount
+ * @property string $payment_option
  * @property int $shipping_address_id
  * @property int $billing_address_id
  * @property string|null $deleted_at
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Cart $cart
  * @property User $user
  * @property Collection|OrderDetail[] $order_details
+ * @property Collection|Paytm[] $paytms
  *
  * @package App\Models
  */
@@ -48,6 +50,7 @@ class Order extends Model
 		'user_id',
 		'cart_id',
 		'total_amount',
+		'payment_option',
 		'shipping_address_id',
 		'billing_address_id'
 	];
@@ -70,5 +73,10 @@ class Order extends Model
 	public function order_details()
 	{
 		return $this->hasMany(OrderDetail::class);
+	}
+
+	public function paytms()
+	{
+		return $this->hasMany(Paytm::class);
 	}
 }

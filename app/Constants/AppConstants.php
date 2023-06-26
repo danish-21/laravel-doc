@@ -14,6 +14,13 @@ class AppConstants
     const INVALID_OTP = 'Invalid OTP, enter correct OTP';
     const EXPIRED_OTP = 'Your OTP has expired';
 
+
+    // PAYMENT OPTION
+
+    const PAYMENT_METHOD_COD = 'CASH_ON_DELIVERY';
+    const PAYMENT_METHOD_UPI = 'UPI';
+    const PAYMENT_METHOD_CARD = 'CARD';
+
     // Rest of your code...
 
 }
