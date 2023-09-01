@@ -2,9 +2,14 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\AuthenticationException;
+
 
 
 class Handler extends ExceptionHandler
@@ -44,8 +49,22 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof ValidationException) {
-            return response()->json(['errors' => $e->errors()], 422);
+            return response()->json(['errors' => $e->errors()], 400);
         }
+
+        if ($e instanceof ModelNotFoundException) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        if ($e instanceof NotFoundHttpException) {
+            return response()->json(['error' => 'Resource not found'], 404);
+        }
+
+        if ($e instanceof RouteNotFoundException) {
+            return response()->json(['error' => 'Route login not define'], 404);
+        }
+
+
 
         return parent::render($request, $e);
     }

@@ -2,25 +2,27 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+use Illuminate\Support\Facades\Auth; // Import the Auth facade
+
 
 class ProductTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
+
+    use RefreshDatabase; // Automatically migrate and refresh the test database
 
     public function testCreateProductWithMiddleware()
     {
+
         $data = [
             'name' => "New Product",
             'description' => "This is a product",
             'category_id' => 1,
             'price' => 10,
-            'file_id' => 1, // Replace with a valid file ID
+            'file_id' => 1,
         ];
 
-        // Send a POST request to the bulkCreate endpoint without authentication
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])->post('/api/products/bulkCreate', ['products' => [$data]]);

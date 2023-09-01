@@ -9,11 +9,16 @@ use App\Models\Category;
 use App\Models\UserCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CategoryController extends BaseController
 {
     public function create(CreateCategoryRequest $request)
     {
+        $user = Auth::id();
+        if (!$user) {
+            throw new BadRequestHttpException('route login not define');
+        }
         // Validate the request data
         $validatedData = $request->validated();
 

@@ -53,7 +53,6 @@ Route::put('categories/{id}/status', [CategoryController::class, 'updateStatus']
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 Route::post('files', [FileController::class, 'store']);
-Route::get('video', [FileController::class, 'downloadVideosFromPlaylist']);
 
 
 
