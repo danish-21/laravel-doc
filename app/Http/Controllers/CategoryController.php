@@ -27,9 +27,9 @@ class CategoryController extends BaseController
             // Create a new category instance
             $category = new Category();
             $category->name = $categoryData['name'];
-            $category->parent_id = $categoryData['parent_id'];
-            $category->file_id = $categoryData['file_id'];
-            $category->is_active = $categoryData['is_active'];
+            $category->parent_id = $categoryData['parent_id'] ?? null;
+            $category->file_id = $categoryData['file_id'] ?? null;
+            $category->is_active = true;
 
             // Save the category to the database
             $category->save();
@@ -52,7 +52,7 @@ class CategoryController extends BaseController
     {
         $search = $request->query('search');
 
-        $query = Category::with('children', 'file')->where('is_active', '=', 1);
+        $query = Category::with('categories', 'file')->where('is_active', '=', 1);
 
         if ($search) {
             $query->where('name', 'like', '%' . $search . '%');

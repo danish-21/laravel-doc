@@ -13,18 +13,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Order
- * 
+ *
  * @property int $id
  * @property int $user_id
  * @property int $cart_id
  * @property float $total_amount
  * @property string $payment_option
+ * @property string $order_number
  * @property int $shipping_address_id
  * @property int $billing_address_id
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property UserAddress $user_address
  * @property Cart $cart
  * @property User $user
@@ -49,6 +50,7 @@ class Order extends Model
 	protected $fillable = [
 		'user_id',
 		'cart_id',
+        'order_number',
 		'total_amount',
 		'payment_option',
 		'shipping_address_id',

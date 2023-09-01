@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\AppException;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\ProductCreateRequest;
 use App\Models\Product;
@@ -48,7 +49,7 @@ class ProductController extends BaseController
 
         $query = $request->input('search');
 
-        $products = Product::with(['category', 'product_images.file']);
+            $products = Product::with(['category', 'product_images.file']);
 
         if (!empty($query)) {
             $products->where(function ($q) use ($query) {

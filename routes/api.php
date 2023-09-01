@@ -36,6 +36,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('carts', [CartController::class, 'getAllCartData']);
     Route::put('carts/{id}', [CartController::class, 'updateCartDetail']);
     Route::post('orders', [OrderController::class, 'create']);
+    Route::post('products', [ProductController::class, 'bulkCreate']);
+    Route::post('user-address', [UserController::class, 'createUserAddress']);
+
 
 
 
@@ -47,7 +50,6 @@ Route::get('categories', [CategoryController::class, 'index']);
 Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
 Route::get('attributes', [CategoryController::class, 'getName']);
 Route::put('categories/{id}/status', [CategoryController::class, 'updateStatus']);
-Route::post('products', [ProductController::class, 'bulkCreate']);
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 Route::post('files', [FileController::class, 'store']);

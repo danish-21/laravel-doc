@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('product_stock_labels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('s3_key')->nullable();
-            $table->string('local_path');
-            $table->string('type');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('start_range');
+            $table->unsignedBigInteger('end_range');
+            $table->string('labels');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('product_stock_lables');
     }
 };

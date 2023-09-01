@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Collection|CartDetail[] $cart_details
  * @property Collection|OrderDetail[] $order_details
  * @property Collection|ProductImage[] $product_images
+ * @property Collection|ProductStockLabel[] $product_stock_labels
  *
  * @package App\Models
  */
@@ -68,5 +69,10 @@ class Product extends Model
 	public function product_images()
 	{
 		return $this->hasMany(ProductImage::class);
+	}
+
+	public function product_stock_labels()
+	{
+		return $this->hasMany(ProductStockLabel::class);
 	}
 }

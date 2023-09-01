@@ -6,7 +6,9 @@ use App\Exceptions\AppException;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\User\UserAddressRequest;
 use App\Models\User;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -52,8 +54,8 @@ class UserController extends BaseController
             $user->save();
 
             // Return a response indicating success or any additional data you need
-            ResponseHelper::createOrUpdateResponse($user);
-        } catch (AppException $exception) {
+            return ResponseHelper::createOrUpdateResponse($user);
+        } catch (\Exception $exception) {
             return $this->standardResponse($exception->getMessage(), null,  null,400);
         }
     }
@@ -112,6 +114,30 @@ class UserController extends BaseController
         }catch (AppException $exception) {
             return $this->standardResponse($exception->getMessage(), 'User not found', null, 400);
         }
+    }
+    public function createUserAddress(UserAddressRequest $request) {
+        $user = Auth::id();
+        if (is_null($user)) {
+            throw new  AppException('Please Login', 400);
+        }
+        $validatedData = $request->validated();
+//        dd($validatedData);
+
+
+        $user_address = new UserAddress();
+        $user_address->user_id = $user;
+        $user_address->address = $validatedData['address'];
+        $user_address->zipcode = $validatedData['zipcode'];
+        $user_address->phone = $validatedData['phone'];
+        $user_address->building = $validatedData['building'];
+        $user_address->street = $validatedData['street'];
+        $user_address->area = $validatedData['area'];
+        $user_address->state = $validatedData['state'];
+        $user_address->country = $validatedData['country'];
+        $user_address->city = $validatedData['city'];
+        $user_address->save();
+        return $this->standardResponse('User Address Create Successfully',$user_address);
+
     }
 
 }

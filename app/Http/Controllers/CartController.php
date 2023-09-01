@@ -53,10 +53,10 @@ class CartController  extends BaseController
                 }
             }
 
-            return response()->json('Products added to cart successfully');
+            return $this->standardResponse('Products added to cart successfully', $cart);
         } catch (\Exception $e) {
             // Handle the exception
-            return response()->json('An error occurred while adding products to the cart', 500);
+            return response()->json('An error occurred while adding products to the cart', 400);
         }
     }
     public function getAllCartData(Request $request)
