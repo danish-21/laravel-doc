@@ -232,10 +232,10 @@
                     <table  role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td  width="50%" class="logo" style="text-align: left; padding: 1em 1.5em;">
-                                <img src="{{(env('APP_URL').'/images/NCLogo.png')}}" alt="logo" style="max-width: 100px; flex-grow: 1;">
+                                <img src="{{(env('APP_URL').'')}}" alt="logo" style="max-width: 100px; flex-grow: 1;">
                             </td>
                             <td  width="50%" class="logo" style="text-align: right; padding: 1em 1.5em;">
-                                <img src="{{(env('APP_URL').'/images/myglobalagro.png')}}" alt="logo" style="max-width: 100px; flex-grow: 1;">
+                                <img src="{{(env('APP_URL').'')}}" alt="logo" style="max-width: 100px; flex-grow: 1;">
                             </td>
                         </tr>
                     </table>
@@ -262,7 +262,7 @@
                                 <div class="heading-section" style=" color:#0C0101; padding: 1.5em;">
                                     <p>Hello <b>{{$user->name}}</b>,</p>
 
-                                    <p> Thank you for signing up on NeerCare Agro!</p>
+                                    <p> Thank you for signing up!</p>
 
                                     <p>In Order to verify your email and complete your account setup, we need to confirm your email address by entering a One-Time Password(OTP)</p>
 
@@ -270,7 +270,7 @@
 
                                     <p>If you did not initiate this request, please ignore this email and your account will not be created.</p>
 
-                                    <p>Thank You for Choosing NeerCare Agro!</p>
+                                    <p>Thank You!</p>
                                 </div>
                             </td>
                         </tr>
@@ -284,19 +284,19 @@
                         <tr>
                             <td colspan="2">
                                 <hr>
-                                <p style="text-align: center;">In Case of any assistance, please feel free to <a href="mailto:it@neercareagro.com" style="color: #034EA2;"> contact us!</a></p>
+                                <p style="text-align: center;">In Case of any assistance, please feel free to <a href="" style="color: #034EA2;"> contact us!</a></p>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <p>Regards,<br>NeerCare Agro Team</p>
+                                <p>Regards,<br>John</p>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <a href="https://www.facebook.com/neercareagro/"> <img src="{{(env('APP_URL').'/images/facebook.png')}}"   alt="logo" style="margin-bottom: 6px;" ></a>
-                                <a href="https://instagram.com/neercareagro/"> <img src="{{(env('APP_URL').'/images/instagram.png')}}"   alt="logo" ></a>
-                                <a href="https://www.linkedin.com/company/neearcareagro/"><img src="{{env('APP_URL').('/images/linkedin.png')}}"   alt="logo" ></a>
+                                <a href=""> <img src="{{(env('APP_URL').'')}}"   alt="logo" style="margin-bottom: 6px;" ></a>
+                                <a href=""> <img src="{{(env('APP_URL').'')}}"   alt="logo" ></a>
+                                <a href=""><img src="{{env('APP_URL').('')}}"   alt="logo" ></a>
                             </td>
                         </tr>
                     </table>

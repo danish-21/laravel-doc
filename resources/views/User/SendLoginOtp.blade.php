@@ -232,22 +232,20 @@
                     <table  role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td  width="50%" class="logo" style="text-align: left; padding: 1em 1.5em;">
-{{--                                <img src="{{(env('APP_URL').'/images/NCLogo.png')}}" alt="logo" style="max-width: 100px; flex-grow: 1;">--}}
                             </td>
                             <td  width="50%" class="logo" style="text-align: right; padding: 1em 1.5em;">
-{{--                                <img src="{{(env('APP_URL').'/images/myglobalagro.png')}}" alt="logo" style="max-width: 100px; flex-grow: 1;">--}}
                             </td>
                         </tr>
                     </table>
                 </td>
-            </tr><!-- end tr -->
+            </tr>
 
             <tr>
                 <td valign="top" bgcolor="#9FCA3F" style="background-color: #9FCA3F;">
                     <table bgcolor="#9FCA3F" role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #9FCA3F;">
                         <tr>
                             <td bgcolor="#9FCA3F" width="100%" class="logo" style="text-align: center; color:white; letter-spacing: 1.82px; padding: 1em 1.5em;font-size: 35px;font-weight: 600">
-                                HI NISHA
+                                HI
                             </td>
                         </tr>
                     </table>
@@ -260,7 +258,7 @@
                         <tr>
                             <td class="bg_white email-section" style="width: 100%">
                                 <div class="heading-section" style=" color:#0C0101; padding: 1.5em;">
-                                    <p>Hello <b>NISHA</b>,</p>
+                                    <p>Hello <b></b>,</p>
 
                                     <p> Welcome back to X!</p>
 
@@ -284,7 +282,6 @@
                         <tr>
                             <td colspan="2">
                                 <hr>
-{{--                                <p style="text-align: center;">In Case of any assistance, please feel free to <a href="mailto:it@neercareagro.com" style="color: #034EA2;"> contact us!</a></p>--}}
                             </td>
                         </tr>
                         <tr>
@@ -293,11 +290,7 @@
                             </td>
                         </tr>
                         <tr>
-                            {{--<td colspan="2">
-                                <a href="https://www.facebook.com/neercareagro/"> <img src="{{(env('APP_URL').'/images/facebook.png')}}"   alt="logo" style="margin-bottom: 6px;" ></a>
-                                <a href="https://instagram.com/neercareagro/"> <img src="{{(env('APP_URL').'/images/instagram.png')}}"   alt="logo" ></a>
-                                <a href="https://www.linkedin.com/company/neearcareagro/"><img src="{{env('APP_URL').('/images/linkedin.png')}}"   alt="logo" ></a>
-                            </td>--}}
+
                         </tr>
                     </table>
                 </td>

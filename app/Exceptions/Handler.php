@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof ModelNotFoundException) {
-            return response()->json(['error' => 'User not found'], 404);
+            return response()->json(['error' => $e->getMessage()], 404);
         }
 
         if ($e instanceof NotFoundHttpException) {
@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof RouteNotFoundException) {
-            return response()->json(['error' => 'Route login not define'], 404);
+            return response()->json(['error' => $e->getMessage()], 404);
         }
 
 

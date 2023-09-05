@@ -17,7 +17,7 @@ class CategoryController extends BaseController
     {
         $user = Auth::id();
         if (!$user) {
-            throw new BadRequestHttpException('route login not define');
+            throw new BadRequestHttpException('You are not logeIn');
         }
         // Validate the request data
         $validatedData = $request->validated();

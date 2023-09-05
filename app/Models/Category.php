@@ -8,12 +8,13 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Category
- * 
+ *
  * @property int $id
  * @property string $name
  * @property int|null $parent_id
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property File|null $file
  * @property Category|null $category
  * @property Collection|Category[] $categories
@@ -34,7 +35,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
 	use SoftDeletes;
-	protected $table = 'categories';
+    use HasFactory;
+
+    protected $table = 'categories';
 
 	protected $casts = [
 		'parent_id' => 'int',

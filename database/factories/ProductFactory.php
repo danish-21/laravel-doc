@@ -8,6 +8,7 @@ use App\Models\Product;
 
 class ProductFactory extends Factory
 {
+
     /**
      * Define the model's default state.
      *

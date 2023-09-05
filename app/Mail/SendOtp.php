@@ -43,7 +43,7 @@ class SendOtp extends Mailable
 
         Mail::send('User.SendLoginOtp', ['user' => $user, 'otp' => $userOtp], function ($message) use ($user,$userOtp) {
 
-            $message->from(env('MAIL_USERNAME'), 'Reza');
+            $message->from(env('MAIL_USERNAME'));
             $message->subject('Your Login Verification One Time Password (OTP)');
             $message->to($user->email);
         });
