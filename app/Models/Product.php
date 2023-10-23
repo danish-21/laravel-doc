@@ -10,8 +10,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
-use phpseclib3\File\ASN1\Maps\Attribute;
 
 /**
  * Class Product
@@ -36,6 +34,7 @@ use phpseclib3\File\ASN1\Maps\Attribute;
  * @property Category $category
  * @property File|null $file
  * @property Collection|CartDetail[] $cart_details
+ * @property Collection|CouponDetail[] $coupon_details
  * @property Collection|OrderDetail[] $order_details
  * @property Collection|ProductImage[] $product_images
  * @property Collection|ProductStockLabel[] $product_stock_labels
@@ -47,7 +46,7 @@ class Product extends Model
 	use SoftDeletes;
 	protected $table = 'products';
 
-    protected $casts = [
+	protected $casts = [
 		'category_id' => 'int',
 		'price' => 'float',
 		'quantity' => 'int',
@@ -75,36 +74,25 @@ class Product extends Model
 		'thumbnail_id'
 	];
 
+
+
+
     protected $appends = [
-//        'is_wishlisted',
-//        'label',
+        'is_wishlisted',
     ];
-//    public function getLabelAttribute()
-//    {
-//        if (is_null(ProductStockLabel::select('labels')
-//            ->where('product_id', $this->id)
-//            ->where(function ($q){
-//                $q->where('start_range', '<=', $this->stock )
-//                    ->where('end_range', '>=', $this->stock );
-//            })
-//            ->first())){
-//            if ($this->stock > 0){
-//                return ['labels'=>'In Stock'];
-//            }
-//        }
-//
-//        if ($this->stock == 0){
-//            return ['labels' => 'Out of Stock'];
-//        }
-//
-//        return ProductStockLabel::select('labels')
-//            ->where('product_id', $this->id)
-//            ->where(function ($q){
-//                $q->where('start_range', '<=', $this->stock )
-//                    ->where('end_range', '>=', $this->stock );
-//            })
-//            ->first();
-//    }
+
+// Define an accessor method for 'is_wishlisted'
+    public function getIsWishlistedAttribute()
+    {
+
+        return $this->isWishlisted();
+    }
+    public function isWishlisted()
+    {
+
+        return true;
+    }
+
 
 
 
@@ -123,6 +111,11 @@ class Product extends Model
 		return $this->hasMany(CartDetail::class);
 	}
 
+	public function coupon_details()
+	{
+		return $this->hasMany(CouponDetail::class);
+	}
+
 	public function order_details()
 	{
 		return $this->hasMany(OrderDetail::class);
@@ -137,5 +130,4 @@ class Product extends Model
 	{
 		return $this->hasMany(ProductStockLabel::class);
 	}
-
 }

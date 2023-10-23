@@ -19,14 +19,21 @@ class OrderController extends BaseController
 
     public function create(Request $request)
     {
+        // Validate the incoming request data
+        $request->validate([
+            'payment_option' => 'required|in:CASH_ON_DELIVERY,CARD,UPI',
+            'shipping_address_id' => 'required|exists:user_addresses,id',
+            'billing_address_id' => 'required|exists:user_addresses,id',
+        ]);
         $user = Auth::id();
         $order = Order::orderBy('id', 'desc')->first();
         $date = Carbon::now()->format('y');
         $month = Carbon::now()->format('m');
 
         try {
+
             if (is_null($order)) {
-                $order_num = 'MDR' . $date . $month . '0000001';
+                $order_num = 'MDR' . $date . $month . '0000000';
             } else {
                 $order_num = 'MDR' . $date . $month . str_pad($order->id, 7, '0', STR_PAD_LEFT);
             }
@@ -35,13 +42,15 @@ class OrderController extends BaseController
             if (is_null($cart)) {
                 throw new AppException('cart item is not valid');
             }
-
-            // Validate the incoming request data
-            $request->validate([
-                'payment_option' => 'required|in:CASH_ON_DELIVERY,CARD,UPI',
-                'shipping_address_id' => 'required|exists:user_addresses,id',
-                'billing_address_id' => 'required|exists:user_addresses,id',
-            ]);
+            foreach ($cart->cart_details as $item) {
+                $product = $item->product;
+                if ($product->quantity < $item->quantity) {
+                    throw new AppException('Product quantity not available');
+                }
+                // Update product quantity
+                $product->quantity -= $item->quantity;
+                $product->save();
+            }
 
             // Retrieve user addresses
             $shippingAddress = UserAddress::find($request->shipping_address_id);

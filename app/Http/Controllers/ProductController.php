@@ -20,12 +20,13 @@ class ProductController extends BaseController
         // Create an array to store the created products
         $createdProducts = [];
 
-        foreach ($validatedData['products'] as $productData) {
+        foreach ($validatedData as $productData) {
             // Create a new product instance
             $product = new Product();
             $product->name = $productData['name'];
             $product->description = $productData['description'];
             $product->category_id = $productData['category_id'];
+            $product->quantity = $productData['quantity'];
             $product->price = $productData['price'];
             // Save the product to the database
             $product->save();

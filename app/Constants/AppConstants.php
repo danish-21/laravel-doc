@@ -22,5 +22,7 @@ class AppConstants
     const PAYMENT_METHOD_CARD = 'CARD';
 
     // Rest of your code...
+    const COUPON_TYPE_FIXED = 'FIXED';
+    const COUPON_TYPE_PERCENTAGE = 'PERCENTAGE';
 
 }

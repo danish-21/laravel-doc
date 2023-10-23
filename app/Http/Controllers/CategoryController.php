@@ -102,6 +102,7 @@ class CategoryController extends BaseController
     {
         $categories = Category::pluck('name');
 
+
         return response()->json([
             'message' => 'Category name retrieved successfully',
             'data' => [
